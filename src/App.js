@@ -2,41 +2,57 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const App = () => {
-  let arr = new Array(10).fill(0);
-  let arr1 = new Array(10).fill(0);
-  let arr2 = new Array(10).fill(0);
-  let arr3 = new Array(10).fill(0);
-  let arr4 = new Array(10).fill(0);
-  let arr5 = new Array(10).fill(0);
-  let arr6 = new Array(10).fill(0);
+  // let arr = new Array(10).fill(0);
+  // let arr1 = new Array(10).fill(0);
+  // let arr2 = new Array(10).fill(0);
+  // let arr3 = new Array(10).fill(0);
+  // let arr4 = new Array(10).fill(0);
+  // let arr5 = new Array(10).fill(0);
+  // let arr6 = new Array(10).fill(0);
 
 
 
 
-  let outerArray = [arr, arr1, arr2, arr3, arr4, arr5, arr6];
+  // let outerArray = [arr, arr1, arr2, arr3, arr4, arr5, arr6];
 
   const [grid, setGrid] = useState([]);
   const [go, setGo] = useState(0)
-  
-  
+  const [randomGen, setRandomGen] = useState(false)
   const [size, setSize] = useState({xDimension:10, yDimension:10})
+  const [speed, setSpeed] = useState(5)
   const intervalRef = useRef(null);
 
+  console.log('state', grid)
+  console.log("x", size.xDimension)
+  console.log("y", size.yDimension)
+  
   function arrayMaker() {
+
+
     let xArr = []
     for(let x=0; x < Number(size.xDimension); x++ ){
       let yArr = []
       for(let y=0; y < Number(size.yDimension);y++){
-        yArr[y]=0
+        if (randomGen) {
+          yArr[y]=Math.round(Math.random()*1)
+        } else {
+          yArr[y]=0
+        }
       }
       xArr.push(yArr);
 
     }
-    setGrid([...grid, ...xArr])
+    setGrid([...xArr])
+    
   }
+
+
+
 useEffect(()=>{
 arrayMaker();
-},[])
+},[size.xDimension, size.yDimension, randomGen])
+
+
   
   function algo() {
 
@@ -45,34 +61,34 @@ arrayMaker();
       clone = JSON.parse(JSON.stringify(grid));
     //  console.log('grid', grid)
     //  console.log('this is clone',clone)
-    for (let x = 0; x < outerArray.length; x++) {
+    for (let x = 0; x < size.xDimension; x++) {
    
-      for (let y = 0; y < arr.length; y++) {
+      for (let y = 0; y < size.yDimension; y++) {
        
         let checks2 = [
-          grid[(outerArray.length + (x - 1)) % outerArray.length][
-            (arr.length + (y - 1)) % arr.length
+          grid[(size.xDimension + (x - 1)) % size.xDimension][
+            (size.yDimension + (y - 1)) % size.yDimension
           ],
-          grid[(outerArray.length + (x + 0)) % outerArray.length][
-            (arr.length + (y - 1)) % arr.length
+          grid[(size.xDimension + (x + 0)) % size.xDimension][
+            (size.yDimension + (y - 1)) % size.yDimension
           ],
-          grid[(outerArray.length + (x + 1)) % outerArray.length][
-            (arr.length + (y - 1)) % arr.length
+          grid[(size.xDimension + (x + 1)) % size.xDimension][
+            (size.yDimension + (y - 1)) % size.yDimension
           ],
-          grid[(outerArray.length + (x + 1)) % outerArray.length][
-            (arr.length + (y + 0)) % arr.length
+          grid[(size.xDimension + (x + 1)) % size.xDimension][
+            (size.yDimension + (y + 0)) % size.yDimension
           ],
-          grid[(outerArray.length + (x - 1)) % outerArray.length][
-            (arr.length + (y + 0)) % arr.length
+          grid[(size.xDimension + (x - 1)) % size.xDimension][
+            (size.yDimension + (y + 0)) % size.yDimension
           ],
-          grid[(outerArray.length + (x - 1)) % outerArray.length][
-            (arr.length + (y + 1)) % arr.length
+          grid[(size.xDimension + (x - 1)) % size.xDimension][
+            (size.yDimension + (y + 1)) % size.yDimension
           ],
-          grid[(outerArray.length + (x + 0)) % outerArray.length][
-            (arr.length + (y + 1)) % arr.length
+          grid[(size.xDimension + (x + 0)) % size.xDimension][
+            (size.yDimension + (y + 1)) % size.yDimension
           ],
-          grid[(outerArray.length + (x + 1)) % outerArray.length][
-            (arr.length + (y + 1)) % arr.length
+          grid[(size.xDimension + (x + 1)) % size.xDimension][
+            (size.yDimension + (y + 1)) % size.yDimension
           ],
         ];
         
@@ -85,10 +101,10 @@ arrayMaker();
         // if current grid value is 0 and the count == 3 then change the value 1
         if (grid[x][y] === 1 && (count > 3 || count < 2)) {
           clone[x][y] = 0;
-          console.log("this is true 1", clone[x][y] === grid[x][y])
+          // console.log("this is true 1", clone[x][y] === grid[x][y])
         } else if (grid[x][y] === 0 && count === 3) {
           clone[x][y] = 1;
-          console.log("this is true 2", clone[x][y] === grid[x][y])
+          // console.log("this is true 2", clone[x][y] === grid[x][y])
         }
 
 
@@ -96,15 +112,23 @@ arrayMaker();
       }
 
     }
+
+    console.log(grid)
     
     setGrid((grid) =>  grid = JSON.parse(JSON.stringify(clone)));
     
   }
 
-  useEffect(() => {
-    
-    algo()
 
+
+  useEffect(() => {
+    if( go === 0){
+      console.log('zero')
+    } else {
+      algo()
+
+    }
+    
   }, [go])
 
 
@@ -118,9 +142,8 @@ arrayMaker();
     }
     intervalRef.current = setInterval(() =>{
       setGo(go => go + 1);
-      console.log('gooooo', go)
-      console.log('hi')
-    }, 1000);
+     
+    }, speed*200);
   };
 
   const stop = () => {
@@ -133,17 +156,30 @@ arrayMaker();
 
   function handleChange(e){
     e.preventDefault()
-    setSize({...size,[e.target.name]:e.target.value})
+    setSize({...size,[e.target.name]:Number(e.target.value)})
   }
 
-  console.log(size)
+  function handleSpeed(e){
+    e.preventDefault()
+    setSpeed(e.target.value)
+    stop()
+    start()
+  }
+
+  console.log('random', randomGen)
   return (
     <>
       <button onClick={start}>Start</button>
       <button onClick={stop}> Stop </button>
+      <button onClick={() => setRandomGen(!randomGen)}
+      >Random</button>
+      
+      
       <form>
         <div>
-          
+          <div>
+          <input name="speed" type="range" min="1" max="10" step="1" value={speed} onChange={handleSpeed} />
+        </div>
           <label>
           xDimension:
             <input type="text" value={size.xDimension} name='xDimension' onChange={handleChange} />
@@ -155,7 +191,7 @@ arrayMaker();
 
           </div>
       </form>
-      <div className="border1">
+      <div className="border1" style={{ gridTemplateColumns: `repeat(${size.yDimension}, 20px)`}} >
         {grid.map((x, ind1) =>
           x.map((y, ind2) => (
             <div
@@ -164,7 +200,7 @@ arrayMaker();
                 const newGrid = [...grid];
                 newGrid[ind1][ind2] = grid[ind1][ind2] ? 0 : 1;
                 setGrid(newGrid);
-                console.log("localstate", grid);
+                
               }}
               style={{
                 width: 20,
