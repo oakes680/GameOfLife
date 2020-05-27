@@ -53,7 +53,7 @@ arrayMaker();
 },[size.xDimension, size.yDimension, randomGen])
 
 
-  
+  console.log('modddd',9%10)
   function algo() {
 
       let clone = []
@@ -115,7 +115,7 @@ arrayMaker();
 
     console.log(grid)
     
-    setGrid((grid) =>  grid = JSON.parse(JSON.stringify(clone)));
+    setGrid(clone);
     
   }
 
@@ -196,7 +196,7 @@ arrayMaker();
           x.map((y, ind2) => (
             <div
               onClick={() => {
-                // setCellStatus(!cellStatus)
+            
                 const newGrid = [...grid];
                 newGrid[ind1][ind2] = grid[ind1][ind2] ? 0 : 1;
                 setGrid(newGrid);
