@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.border1 {
+  
+  margin: 20px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(10, 20px);
+  
+
+}
+
+.flexy {
+  /* border: 1px solid green; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  
+}
