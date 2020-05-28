@@ -158,6 +158,7 @@ const App = () => {
 
   return (
     <div>
+      <h1>Conway's Game of Life</h1>
       <div className='buttonDiv'>
         <button onClick={start}>Start</button>
         <button onClick={stop}> Stop </button>

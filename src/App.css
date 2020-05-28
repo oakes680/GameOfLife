@@ -125,3 +125,7 @@ button {
   background: #008080;
   cursor: pointer;
 }
+
+h1 {
+  text-align: center;
+}
