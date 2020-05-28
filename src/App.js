@@ -13,6 +13,7 @@ const App = () => {
   const intervalRef = useRef(null);
 
 
+
   function arrayMaker() {
     let xArr = [];
     for (let x = 0; x < Number(size.xDimension); x++) {
