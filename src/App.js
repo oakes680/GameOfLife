@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import "./sassStyle.scss";
 
 const App = () => {
-  // let arr = new Array(10).fill(0);
-  // let arr1 = new Array(10).fill(0);
-  // let arr2 = new Array(10).fill(0);
-  // let arr3 = new Array(10).fill(0);
-  // let arr4 = new Array(10).fill(0);
-  // let arr5 = new Array(10).fill(0);
-  // let arr6 = new Array(10).fill(0);
-
-  // let outerArray = [arr, arr1, arr2, arr3, arr4, arr5, arr6];
 
   const [grid, setGrid] = useState([]);
   const [go, setGo] = useState(0);
@@ -20,7 +12,6 @@ const App = () => {
   const [stopAlgo, setStopAlgo] = useState(false);
   const intervalRef = useRef(null);
 
-  
 
   function arrayMaker() {
     let xArr = [];
@@ -169,8 +160,8 @@ const App = () => {
       <form>
         <div className='formDiv'>
         <div className="slidecontainer">
-          <span>Speed:</span>
-          <span>{speed}</span>
+          <span className='spanLabel'>Speed:</span>
+          <span className='spanLabel'>{speed}</span>
             <input
               className="slider"
               name="speed"
@@ -183,7 +174,7 @@ const App = () => {
             />
           
           <label className='labelSize'>
-            <span className="mRight">xDimension:</span>
+            <span className="mRight spanLabel">xDimension:</span>
             <input
               className='inputSize'
               type="text"
@@ -193,7 +184,7 @@ const App = () => {
             />
           </label>
           <label className='labelSize'>
-            <span className="mRight">yDimension:</span>
+            <span className="mRight spanLabel">yDimension:</span>
             <input
             className='inputSize'
               type="text"
@@ -207,11 +198,14 @@ const App = () => {
       </form>
       <div
         className="border1"
-        style={{ gridTemplateColumns: `repeat(${size.yDimension}, 20px)` }}
+        style={{"--cols":`${size.yDimension}`}}
+
+        // style={{ gridTemplateColumns: `repeat(${size.yDimension}, 20px)` }}
       >
         {grid.map((x, ind1) =>
           x.map((y, ind2) => (
             <div
+              className='cellSize'
               onClick={() => {
                 const newGrid = [...grid];
                 newGrid[ind1][ind2] = grid[ind1][ind2] ? 0 : 1;
@@ -222,7 +216,7 @@ const App = () => {
                 width: 20,
                 height: 20,
                 backgroundColor: grid[ind1][ind2] === 1 ? "#18a8a8" : "white",
-                border: "solid 1px black",
+                border: 'black solid 1px'
               }}
             />
           ))
