@@ -212,14 +212,8 @@ const App = () => {
                 newGrid[ind1][ind2] = grid[ind1][ind2] ? 0 : 1;
                 setGrid(newGrid);
               }}
-              className = {`cellDead ${grid[ind1][ind2] === 1 ? ' cellAlive':''}`}
-              // className={` ${grid[ind1][ind2] === 1 ? 'cellAlive' : "" }`} 
-              // style={{
-              //   width: 20,
-              //   height: 20,
-              //   backgroundColor: grid[ind1][ind2] === 1 ? "#18a8a8" : "white",
-              //   border: 'black solid 1px'
-              // }}
+              className = {` ${grid[ind1][ind2] === 1 ? ' cellAlive':'cellDead'}`}
+           
             />
           ))
         )}
