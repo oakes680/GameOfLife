@@ -44,9 +44,33 @@
     margin: 20px;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(var(--cols), 20px);       
+    grid-template-columns: repeat(var(--cols), 40px); 
+    @media (max-width: 500px){
+        grid-template-columns: repeat(var(--cols), 25px);   
+        }
   }
 
+  .cellAlive {
+      width:40px;
+      height:40px;
+      background-color: #18a8a8;
+      border: black solid 1px;
+      @media (max-width: 500px){
+        width:25px;
+        height:25px;    
+        }
+  }
+
+  .cellDead {
+    width:40px;
+    height:40px;
+    background-color: #f5f5f5;
+    border: black solid 1px;
+    @media (max-width: 500px){
+        width:25px;
+        height:25px;    
+        }
+}
 
   .inputSize {
     width: 20%;
